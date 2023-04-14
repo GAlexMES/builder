@@ -43,9 +43,16 @@ func (file PkgFile) GenerateAccessor() (string, bool) {
 		return "", false
 	}
 
+	empty := true
 	for _, st := range structs {
-		println(st.name)
-		st.DefineAccessors(f)
+		nothingToGenerate := st.DefineAccessors(f)
+		if !nothingToGenerate {
+			empty = false
+		}
+	}
+
+	if empty {
+		return "", false
 	}
 
 	return f.GoString(), true

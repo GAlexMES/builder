@@ -161,7 +161,8 @@ func (f Field) SetterTagValue() (settername string, found bool) {
 	return
 }
 
-func (st PkgStruct) DefineAccessors(file *File) {
+func (st PkgStruct) DefineAccessors(file *File) bool {
+	empty := true
 	// getter
 	{
 		receiver := strings.ToLower(st.name)
@@ -189,6 +190,7 @@ func (st PkgStruct) DefineAccessors(file *File) {
 					Return(Id(receiver).Op(".").Id(field.Name())),
 				).
 				Line()
+			empty = false
 		}
 	}
 
@@ -220,8 +222,10 @@ func (st PkgStruct) DefineAccessors(file *File) {
 					Id(receiver).Op(".").Id(field.Name()).Op("=").Id(argument),
 				).
 				Line()
+			empty = false
 		}
 	}
+	return empty
 }
 
 func (st PkgStruct) filterOpenedFields() (fields []Field) {
