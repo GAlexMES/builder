@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/arabian9ts/builder/pkg/fileoperator"
+	"github.com/galexmes/builder/pkg/fileoperator"
 )
 
 func genBuilder(targetPkg string) {

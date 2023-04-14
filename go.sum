@@ -1,5 +1,2 @@
-github.com/arabian9ts/builder v0.0.0-20200531113345-271b13df8e83 h1:u8nG/RfVpgQcoAtKzQZtIk0wgL57JDO16Fd18rNR6Kg=
-github.com/arabian9ts/builder v0.0.0-20200531113345-271b13df8e83/go.mod h1:7I0ra0MM9CFsTVZkpCE+nO4cpJ+vPqoXKVbi1ukZ/dI=
-github.com/dave/jennifer v1.4.0/go.mod h1:fIb+770HOpJ2fmN9EPPKOqm1vMGhB+TwXKMZhrIygKg=
 github.com/dave/jennifer v1.6.1 h1:T4T/67t6RAA5AIV6+NP8Uk/BIsXgDoqEowgycdQQLuk=
 github.com/dave/jennifer v1.6.1/go.mod h1:nXbxhEmQfOZhWml3D1cDK5M1FLnMSozpbFN/m3RmGZc=

@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/arabian9ts/builder/pkg/builder"
+	"github.com/galexmes/builder/pkg/builder"
 )
 
 func filterBuilderFile(info os.FileInfo) bool {

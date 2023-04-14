@@ -7,7 +7,7 @@ So, builder generates model builder structs and funcs.
 
 ## Installation
 ```sh
-$ go get -u github.com/arabian9ts/builder
+$ go get -u github.com/galexmes/builder
 ```
 
 ## Example
