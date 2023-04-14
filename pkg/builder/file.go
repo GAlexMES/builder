@@ -17,10 +17,14 @@ type PkgFile struct {
 	pkgScope *types.Scope
 }
 
-func (file PkgFile) GenerateBuilder() string {
+func (file PkgFile) GenerateBuilder() (string, bool) {
 	f := NewFile(file.PkgName)
 
 	structs := file.parsePkgStructs()
+	if len(structs) == 0 {
+		return "", false
+	}
+
 	for _, st := range structs {
 		st.DefineBuilderStruct(f)
 		st.DefineBuilderInitializer(f)
@@ -28,18 +32,22 @@ func (file PkgFile) GenerateBuilder() string {
 		st.DefineBuildFunc(f)
 	}
 
-	return f.GoString()
+	return f.GoString(), true
 }
 
-func (file PkgFile) GenerateAccessor() string {
+func (file PkgFile) GenerateAccessor() (string, bool) {
 	f := NewFile(file.PkgName)
 
 	structs := file.parsePkgStructs()
+	if len(structs) == 0 {
+		return "", false
+	}
+
 	for _, st := range structs {
 		st.DefineAccessors(f)
 	}
 
-	return f.GoString()
+	return f.GoString(), true
 }
 
 func (file PkgFile) parsePkgStructs() (pkgStructs []PkgStruct) {
@@ -51,7 +59,7 @@ func (file PkgFile) parsePkgStructs() (pkgStructs []PkgStruct) {
 			}
 
 			st := file.pkgScope.Lookup(typeSpec.Name.Name)
-			sturctMeta, ok := st.Type().Underlying().(*types.Struct)
+			structMeta, ok := st.Type().Underlying().(*types.Struct)
 			if !ok {
 				continue
 			}
@@ -59,7 +67,7 @@ func (file PkgFile) parsePkgStructs() (pkgStructs []PkgStruct) {
 			pkgStruct := PkgStruct{
 				fset: file.fset,
 				name: typeSpec.Name.Name,
-				meta: sturctMeta,
+				meta: structMeta,
 			}
 			pkgStructs = append(pkgStructs, pkgStruct)
 		}

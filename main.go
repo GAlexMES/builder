@@ -27,7 +27,7 @@ func main() {
 	buildTarget := os.Args[1:]
 
 	if len(buildTarget) <= 0 {
-		fmt.Println("ackage is not specified")
+		fmt.Println("package is not specified")
 		fmt.Println("[USAGE]: builder <Package Name>")
 		os.Exit(1)
 	}

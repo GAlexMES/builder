@@ -67,6 +67,11 @@ func CreateBuilder(targetPkg string) error {
 
 	files := pkg.ParsePkgFiles()
 	for _, file := range files {
+		code, hasBuilder := file.GenerateBuilder()
+		if !hasBuilder {
+			continue
+		}
+
 		pos := strings.LastIndex(file.FileName, ".")
 		fileName := fmt.Sprintf("%s_builder.go", file.FileName[:pos])
 		fp, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE, 0755)
@@ -75,7 +80,6 @@ func CreateBuilder(targetPkg string) error {
 		}
 		defer fp.Close()
 
-		code := file.GenerateBuilder()
 		fp.WriteString(code)
 	}
 
@@ -90,6 +94,11 @@ func CreateAccessor(targetPkg string) error {
 
 	files := pkg.ParsePkgFiles()
 	for _, file := range files {
+		code, hasAccessor := file.GenerateAccessor()
+		if !hasAccessor {
+			continue
+		}
+
 		pos := strings.LastIndex(file.FileName, ".")
 		fileName := fmt.Sprintf("%s_accessor.go", file.FileName[:pos])
 		fp, err := os.OpenFile(fileName, os.O_RDWR|os.O_CREATE, 0755)
@@ -98,7 +107,6 @@ func CreateAccessor(targetPkg string) error {
 		}
 		defer fp.Close()
 
-		code := file.GenerateAccessor()
 		fp.WriteString(code)
 	}
 

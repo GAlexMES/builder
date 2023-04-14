@@ -1,5 +1,5 @@
 module github.com/arabian9ts/builder
 
-go 1.13
+go 1.20
 
-require github.com/dave/jennifer v1.4.0
+require github.com/dave/jennifer v1.6.1
