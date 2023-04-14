@@ -44,7 +44,7 @@ func (file PkgFile) GenerateAccessor() (string, bool) {
 	}
 
 	for _, st := range structs {
-		println(st)
+		println(st.name)
 		st.DefineAccessors(f)
 	}
 
