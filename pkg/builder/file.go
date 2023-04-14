@@ -17,10 +17,13 @@ type PkgFile struct {
 	pkgScope *types.Scope
 }
 
-func (file PkgFile) GenerateBuilder() string {
+func (file PkgFile) GenerateBuilder() (string, bool) {
 	f := NewFile(file.PkgName)
 
 	structs := file.parsePkgStructs()
+	if len(structs) == 0 {
+		return "", false
+	}
 
 	for _, st := range structs {
 		st.DefineBuilderStruct(f)
@@ -29,7 +32,7 @@ func (file PkgFile) GenerateBuilder() string {
 		st.DefineBuildFunc(f)
 	}
 
-	return f.GoString()
+	return f.GoString(), true
 }
 
 func (file PkgFile) GenerateAccessor() (string, bool) {
@@ -41,6 +44,7 @@ func (file PkgFile) GenerateAccessor() (string, bool) {
 	}
 
 	for _, st := range structs {
+		println(st)
 		st.DefineAccessors(f)
 	}
 
