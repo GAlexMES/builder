@@ -67,10 +67,7 @@ func CreateBuilder(targetPkg string) error {
 
 	files := pkg.ParsePkgFiles()
 	for _, file := range files {
-		code, hasBuilder := file.GenerateBuilder()
-		if !hasBuilder {
-			continue
-		}
+		code := file.GenerateBuilder()
 
 		pos := strings.LastIndex(file.FileName, ".")
 		fileName := fmt.Sprintf("%s_builder.go", file.FileName[:pos])
